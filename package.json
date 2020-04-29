@@ -9,8 +9,9 @@
     "lint": "eslint '**/*.js'",
     "lint:fix": "prettier-eslint --list-different --write \"$(pwd)/src/**/*.js\"",
     "test": "jest",
-    "test:watch": "npm run test -- --watch",
-    "test:coverage": "npm run test -- --coverage"
+    "test:coverage": "npm run test -- --coverage",
+    "test:staged": "npm run test -- --findRelatedTests",
+    "test:watch": "npm run test -- --watch"
   },
   "author": {
     "name": "Isidro A. Lopez G.",
@@ -33,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/ialopezg/custom-logger-service/issues"
   },
-  "homepage": "https://github.com/ialopezg/custom-logger-service#readme",
+  "homepage": "https://ialopezg.com/projects/custom-logger-service",
   "keywords": [
     "logger",
     "logging",
@@ -52,6 +53,7 @@
   "lint-staged": {
     "*.js": [
       "npm run lint:fix",
+      "npm run test:staged",
       "git add ."
     ]
   },
