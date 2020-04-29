@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Must be an informative message 1`] = `true`;
+
+exports[`Must print a debugger message by a console 1`] = `"Console Error testing record"`;

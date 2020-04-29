@@ -19,5 +19,8 @@ yarn-error.log
 # Mac OSX project files
 .DS_Store
 
-# Project build files
+# Build files
 lib
+
+# Test files
+coverage

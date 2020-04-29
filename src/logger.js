@@ -20,7 +20,7 @@ const logger = {
   appStarted: (port, host, tunnel) => {
     console.log(`Server started ! ${chalk.green('✓')}`)
 
-    // If the tunnel started, log that and the URL it's available at
+    // If the tunnel started, log the URL it's available at
     if (tunnel) {
       console.log(`Tunnel initialised ${chalk.green('✓')}`)
     }
