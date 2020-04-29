@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - node
+
+script:
+  - npm run lint
+
+after_success:
+  - npm run test:coveralls
+
+os:
+  - osx
+  - linux
+  - windows
+
+notifications:
+  email:
+    - on_failure: change
