@@ -14,20 +14,21 @@ var options = {
   messageFormatting: false
 }
 
-function logger (options) {
+function Logger (options) {
   this.event = options.event
   this.level = options.level || 0
   this.color = options.color || 'white'
 }
 
-logger.prototype.config = function (config) {
+Logger.prototype.config = function (config) {
   for (var key in config) {
     this[key] = config[key]
   }
+
   return this
 }
 
-logger.prototype.__defineGetter__('padding', function () {
+Logger.prototype.__defineGetter__('padding', function () {
   var length = 0
   var padding = ''
 
@@ -44,7 +45,7 @@ logger.prototype.__defineGetter__('padding', function () {
   return padding
 })
 
-logger.prototype.output = function (input) {
+Logger.prototype.output = function (input) {
   if (options.level > this.level) {
     return
   }
@@ -107,7 +108,7 @@ function nFn (e) {
 
 exports.new = function (newEvents) {
   for (var event in newEvents) {
-    events[event] = new logger(newEvents[event])
+    events[event] = new Logger(newEvents[event])
     this[event] = nFn(event)
   }
 

@@ -10,6 +10,7 @@ it('Must setup configurations for a logger instance', () => {
   })
   logger.config(config)
 
+  expect(spy.mock.calls[0][0]).toBe(config)
   expect(logger.config).toBeCalled()
   expect(config).toMatchSnapshot()
 })
