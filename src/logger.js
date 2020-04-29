@@ -1,3 +1,4 @@
+const util = require('util')
 const dateFormat = require('dateformat')
 const chalk = require('chalk')
 const ip = require('ip')
