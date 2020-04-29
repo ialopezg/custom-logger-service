@@ -1,6 +1,6 @@
 {
   "name": "custom-logger-service",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Custom Logger for Apps and API's",
   "main": "lib/logger.js",
   "scripts": {
