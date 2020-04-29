@@ -1,0 +1,41 @@
+{
+  "name": "custom-logger-service",
+  "version": "0.0.1",
+  "description": "Custom Logger for Apps and API's",
+  "main": "lib/logger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Isidro A. Lopez G.",
+    "email": "me@ialopezg.com",
+    "url": "https://ialopezg.com"
+  },
+  "files": [
+    "lib"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ialopezg/custom-logger-service.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ialopezg/custom-logger-service/issues"
+  },
+  "homepage": "https://github.com/ialopezg/custom-logger-service#readme",
+  "keywords": [
+    "logger",
+    "logging",
+    "log",
+    "console",
+    "error",
+    "warning",
+    "info",
+    "debug"
+  ]
+}
