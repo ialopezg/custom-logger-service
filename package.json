@@ -6,8 +6,10 @@
   "scripts": {
     "prebuild": "rimraf lib",
     "build": "rollup -c",
-    "lint": "eslint '**/*.js'",
+    "lint": "npm run lint:eslint -- .",
+    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern lib",
     "lint:fix": "prettier-eslint --list-different --write \"$(pwd)/src/**/*.js\"",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:coveralls": "jest --coverage && coveralls < coverage/lcov.info",
