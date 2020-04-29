@@ -4,6 +4,8 @@
   "description": "Custom Logger for Apps and API's",
   "main": "lib/logger.js",
   "scripts": {
+    "lint": "eslint '**/*.js'",
+    "lint:fix": "prettier-eslint --list-different --write \"$(pwd)/src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
@@ -37,5 +39,15 @@
     "warning",
     "info",
     "debug"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier-eslint": "^9.0.1",
+    "prettier-eslint-cli": "^5.0.0"
+  }
 }

@@ -1,0 +1,20 @@
+#################################################
+# Library - Custom Logger
+#################################################
+
+### Jetbrain Software
+# IntelliJ IDEA
+.idea
+
+### Package Dependency Manager
+# NodeJS
+node_modules
+package-lock.json
+
+# Yarn
+yarn.lock
+yarn-error.log
+
+### Automatically generated files
+# Mac OSX project files
+.DS_Store
