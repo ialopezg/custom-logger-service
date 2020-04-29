@@ -2,4 +2,18 @@
 
 exports[`Must be an informative message 1`] = `true`;
 
-exports[`Must print a debugger message by a console 1`] = `"Console Error testing record"`;
+exports[`Must print a debugger message by a console in grey color 1`] = `"Console Debugging testing message"`;
+
+exports[`Must print a error message by a console in red color 1`] = `"Console Error testing message"`;
+
+exports[`Must print a info message by a console in green color 1`] = `"Console Informative testing message"`;
+
+exports[`Must print a warning message by a console in yellow color 1`] = `"Console Error testing message"`;
+
+exports[`Must setup configurations for a logger instance 1`] = `
+Object {
+  "color": "green",
+  "event": "info",
+  "level": 0,
+}
+`;
