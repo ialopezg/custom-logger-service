@@ -35,7 +35,7 @@ export class LoggerService {
   }
 
   info(message: string): void {
-    this._logMessage(message, LogLevel.INFO, Color.green);
+    this._logMessage(message, LogLevel.INFO, Color.blue);
   }
 
   warn(message: string): void {
@@ -45,7 +45,7 @@ export class LoggerService {
   private _logMessage(
     message: string,
     level: LogLevel = LogLevel.LOG,
-    color: Function = Color.brightBlack,
+    color: Function = Color.green,
     contextColor: Function = Color.white,
   ) {
     let formattedMessage: string;

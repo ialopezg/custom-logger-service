@@ -4,6 +4,6 @@ export interface FormatOptions {
   usePID?: boolean;
   useEvent?: boolean;
   useTimestamp?: boolean | string;
-  useContext: boolean | string;
+  useContext?: boolean | string;
   usePadding?: boolean;
 }
