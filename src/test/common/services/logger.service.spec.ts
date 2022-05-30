@@ -1,129 +1,159 @@
+import { FormatOptions } from '../../../common/interfaces';
+
 const { LoggerService } = require("../../../common");
 
 describe("LoggerService", () => {
+  const defaultConfig: FormatOptions = {
+    useFormat: true,
+    useAppName: true,
+    usePID: true,
+    useEvent: true,
+    useTimestamp: true,
+    useContext: true,
+    usePadding: true,
+  };
+
   describe("Default configuration", () => {
-    let logger: any;
-
-    const config = {
-      useAppName: true,
-      useContext: true,
-      useFormat: true,
-      useEvent: true,
-      usePID: true,
-      useTimestamp: true,
-      usePadding: true,
-    };
-
-    beforeAll(() => {
-      logger = new LoggerService();
-    });
-
     it("should  setup a logger instance with default options", () => {
-      expect(logger["_options"]).toStrictEqual(config);
-      expect(config).toMatchSnapshot();
+      const logger = new LoggerService();
+
+      expect(logger["_options"]).toStrictEqual(defaultConfig);
     });
   });
 
   describe("Custom configuration", () => {
-    let logger: any;
+    it("should setup a logger instance with no options nor format", () => {
+      const config: FormatOptions = {
+        useFormat: false,
+      };
+      const logger = new LoggerService(config);
+      const message = 'Hello World!';
 
-    const config = Object.assign({
-      useAppName: "TestApp",
-    });
-
-    beforeAll(() => {
-      logger = new LoggerService(config);
-    });
-
-    it("should setup a logger instance with custom options", () => {
-      expect(logger["_options"]).toStrictEqual({
-        ...config,
-        useContext: true,
-        useFormat: true,
-        useEvent: true,
-        usePID: true,
-        useTimestamp: true,
-        usePadding: true,
-      });
-      expect(config).toMatchSnapshot();
-    });
-  });
-
-  describe("Event log messages", () => {
-    let logger: any;
-
-    const config = Object.assign({
-      useAppName: "TestApp",
-      useContext: "TestLoader",
-    });
-
-    beforeAll(() => {
-      logger = new LoggerService(config);
-    });
-
-    it("should print a debug message with gray color", () => {
-      const spy = jest.spyOn(logger, "debug").mockImplementation(() => {});
-
-      const message = "Console Debug testing message";
       logger.debug(message);
-
-      expect(logger.debug).toBeCalled();
-      expect(spy.mock.calls[0][0]).toContain(message);
-      expect(true).toMatchSnapshot();
-
-      spy.mockRestore();
-    });
-
-    it("should print an error message with red color", () => {
-      const spy = jest.spyOn(logger, "error").mockImplementation(() => {});
-
-      const message = "Console Error testing message";
       logger.error(message);
-
-      expect(logger.error).toBeCalled();
-      expect(spy.mock.calls[0][0]).toContain(message);
-      expect(spy.mock.calls[0][0]).toMatchSnapshot();
-
-      spy.mockRestore();
-    });
-
-    it("should print an info message with green color", () => {
-      const spy = jest.spyOn(logger, "info").mockImplementation(() => {});
-
-      const message = "Console Info testing message";
       logger.info(message);
-
-      expect(logger.info).toBeCalled();
-      expect(spy.mock.calls[0][0]).toContain(message);
-      expect(spy.mock.calls[0][0]).toMatchSnapshot();
-
-      spy.mockRestore();
-    });
-
-    it("should print a warning message with yellow color", () => {
-      const spy = jest.spyOn(logger, "warn").mockImplementation(() => {});
-
-      const message = "Console Warn testing message";
+      logger.log(message);
       logger.warn(message);
 
-      expect(logger.warn).toBeCalled();
-      expect(spy.mock.calls[0][0]).toContain(message);
-      expect(spy.mock.calls[0][0]).toMatchSnapshot();
-
-      spy.mockRestore();
+      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
     });
 
-    it("should print a log message with grey color", () => {
-      const spy = jest.spyOn(logger, "log").mockImplementation(() => {});
+    it("should setup a logger instance with no options and default format", () => {
+      const config: FormatOptions = {
+        useFormat: true,
+        useAppName: false,
+        usePID: false,
+        useContext: false,
+        useEvent: false,
+        useTimestamp: false,
+        usePadding: false,
+      };
+      const logger = new LoggerService(config);
+      const message = 'Hello World!';
+      const spyLog = jest.spyOn(logger, '_logMessage');
 
-      const message = "Console Log testing message";
+      logger.debug(message);
+      logger.error(message);
+      logger.info(message);
       logger.log(message);
+      logger.warn(message);
 
-      expect(logger.log).toBeCalled();
-      expect(spy.mock.calls[0][0]).toContain(message);
-      expect(true).toMatchSnapshot();
+      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(spyLog).toHaveBeenCalledTimes(5);
+    });
 
-      spy.mockRestore();
+    it("should setup a logger instance with all default format options", () => {
+      const config: FormatOptions = Object.assign(defaultConfig, {
+        useFormat: true,
+        useAppName: 'APP',
+        usePID: true,
+        useEvent: true,
+        useTimestamp: true,
+        useContext: 'TestLoader',
+        usePadding: true,
+      });
+
+      const logger = new LoggerService(config);
+      const message = 'Hello World!';
+      const spyLog = jest.spyOn(logger, '_logMessage');
+
+      logger.debug(message);
+      logger.error(message);
+      logger.info(message);
+      logger.log(message);
+      logger.warn(message);
+
+      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(spyLog).toHaveBeenCalledTimes(5);
+    });
+
+    it("should setup a logger instance with custom format", () => {
+      const config: FormatOptions = Object.assign(defaultConfig, {
+        useFormat: '[%app%] %pid% - %event% %timestamp% - %context% %message%',
+      });
+
+      const logger = new LoggerService(config);
+      const message = 'Hello World!';
+      const spyLog = jest.spyOn(logger, '_logMessage');
+
+      logger.debug(message);
+      logger.error(message);
+      logger.info(message);
+      logger.log(message);
+      logger.warn(message);
+
+      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(spyLog).toHaveBeenCalledTimes(5);
+    });
+
+    it("should setup a logger instance with PID - No AppName", () => {
+      const config: FormatOptions = Object.assign(defaultConfig, {
+        useFormat: true,
+        useAppName: false,
+        usePID: true,
+        useEvent: true,
+        useTimestamp: true,
+        useContext: 'TestLoader',
+        usePadding: true,
+      });
+
+      const logger = new LoggerService(config);
+      const message = 'Hello World!';
+      const spyLog = jest.spyOn(logger, '_logMessage');
+
+      logger.debug(message);
+      logger.error(message);
+      logger.info(message);
+      logger.log(message);
+      logger.warn(message);
+
+      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(spyLog).toHaveBeenCalledTimes(5);
+    });
+
+    it("should setup a logger instance with AppName - no PID - no Context", () => {
+      const config: FormatOptions = Object.assign(defaultConfig, {
+        useFormat: true,
+        useAppName: true,
+        usePID: false,
+        useEvent: true,
+        useTimestamp: true,
+        useContext: true,
+        usePadding: true,
+      });
+
+      const logger = new LoggerService(config);
+      const message = 'Hello World!';
+      const spyLog = jest.spyOn(logger, '_logMessage');
+
+      logger.debug(message);
+      logger.error(message);
+      logger.info(message);
+      logger.log(message);
+      logger.warn(message);
+
+      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(spyLog).toHaveBeenCalledTimes(5);
     });
   });
 });
