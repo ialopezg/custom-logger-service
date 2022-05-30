@@ -1,17 +1,23 @@
 {
   "name": "custom-logger-service",
   "version": "0.2.1",
-  "description": "Custom Logger for Apps and API's",
-  "main": "lib/logger.js",
+  "description": "Custom Logger for Apps and API Services",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "prebuild": "rimraf lib",
+    "prebuild": "rollup --version && rimraf lib && npm run lint:fix",
     "build": "rollup -c",
-    "lint": "npm run lint:eslint -- .",
-    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern lib",
-    "lint:fix": "prettier-eslint --list-different --write \"$(pwd)/src/**/*.js\"",
+    "lint": "prettier --check \"./src/**/*.ts\"",
+    "lint:fix": "prettier --write \"./src/**/*.ts\"",
     "prepublishOnly": "npm run build",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major",
     "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "test:coveralls": "jest --coverage && coveralls < coverage/lcov.info",
     "test:staged": "jest --findRelatedTests",
     "test:watch": "jest --watch"
@@ -22,13 +28,8 @@
     "url": "https://ialopezg.com"
   },
   "files": [
-    "lib"
-  ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
-    }
+    "lib",
+    "CHANGELOG.md"
   ],
   "repository": {
     "type": "git",
@@ -48,43 +49,47 @@
     "info",
     "debug"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "npm run lint:fix",
-      "npm run test:staged",
-      "git add ."
-    ]
-  },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^7.1.3",
-    "coveralls": "^3.1.0",
-    "eslint": "^6.8.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "husky": "^4.2.5",
-    "jest": "^25.5.0",
-    "lint-staged": "^10.2.0",
-    "prettier-eslint": "^9.0.1",
-    "prettier-eslint-cli": "^5.0.0",
+    "@commitlint/cli": "^17.0.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@types/jest": "^27.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "conventional-changelog-angular": "^5.0.13",
+    "conventional-changelog-cli": "^2.2.2",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.16.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "rollup": "^2.7.3",
-    "rollup-plugin-terser": "^5.3.0"
+    "rollup": "^2.74.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "standard-version": "^9.5.0",
+    "ts-jest": "^28.0.3",
+    "ts-node": "^10.8.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.2"
   },
   "dependencies": {
-    "chalk": "^4.0.0",
-    "dateformat": "^3.0.3",
-    "ip": "^1.1.5"
+    "custom-console-colors": "^0.0.4"
   },
   "engines": {
     "node": ">=8"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/",
+      "/lib"
+    ]
   }
 }

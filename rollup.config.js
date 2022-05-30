@@ -1,40 +1,65 @@
-import resolve from '@rollup/plugin-node-resolve'
-import { terser } from 'rollup-plugin-terser'
-import pkg from './package.json'
+import resolve from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
+import { terser } from 'rollup-plugin-terser';
+import pkg from './package.json';
 
-const outputDir = pkg.main.substr(0, pkg.main.indexOf('/')) || 'lib'
-const filename = pkg.main.replace(outputDir + '/', '').replace('.js', '')
+const filename = pkg.main.replace('.js', '').replace('lib/', '');
+const outputDir = 'lib';
 
-const production = !process.env.ROLLUP_WATCH
+const globals = {
+  'custom-console-colors': 'CustomConsoleColors',
+};
 
-const outputs = [
-  {
-    dir: outputDir,
-    entryFileNames: `${filename}.js`,
-    format: 'cjs',
-    sourcemap: true
-  },
-  {
-    dir: outputDir,
-    entryFileNames: `${filename}.min.js`,
-    format: 'cjs',
-    sourcemap: true
-  }
-]
-
-const common = {
-  input: 'src/logger.js',
-  external: ['react'],
+export default {
+  input: `src/${filename}.ts`,
+  external: ['custom-console-colors'],
+  output: [
+    {
+      dir: outputDir,
+      entryFileNames: `${filename}.js`,
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      dir: outputDir,
+      entryFileNames: `${filename}.min.js`,
+      format: 'cjs',
+      sourcemap: true,
+      plugins: [terser()],
+    },
+    {
+      dir: outputDir,
+      entryFileNames: `${filename}.[format].js`,
+      format: 'es',
+      sourcemap: true,
+    },
+    {
+      dir: outputDir,
+      entryFileNames: `${filename}.[format].min.js`,
+      format: 'es',
+      sourcemap: true,
+      plugins: [terser()],
+    },
+    {
+      dir: outputDir,
+      entryFileNames: `${filename}.[format].js`,
+      format: 'umd',
+      sourcemap: true,
+      name: 'CustomLoggerService',
+      globals,
+    },
+    {
+      dir: outputDir,
+      entryFileNames: `${filename}.[format].min.js`,
+      format: 'umd',
+      sourcemap: true,
+      name: 'CustomLoggerService',
+      plugins: [terser()],
+      globals,
+    },
+  ],
   plugins: [
     resolve(),
-    production &&
-      terser({
-        include: [/^.+\.min\.js$/, '*es*', '*umd*', '*iife*']
-      })
-  ]
-}
-
-export default outputs.map(output => ({
-  ...common,
-  output
-}))
+    typescript(),
+  ],
+};
