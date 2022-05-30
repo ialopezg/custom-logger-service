@@ -13,7 +13,7 @@
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 [![Build Status][travis-image]][travis-url]
-[![Coverage Status](https://coveralls.io/repos/github/ialopezg/custom-logger-service/badge.svg?branch=main)](https://coveralls.io/github/ialopezg/corejs?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/ialopezg/custom-logger-service/badge.svg?branch=main)](https://coveralls.io/github/ialopezg/custom-logger-service?branch=main)
 <br class="badge-separator" />
 <span class="badge-patreon"><a href="https://patreon.com/ialopezg" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
 <span class="badge-opencollective"><a href="https://opencollective.com/ialopezg" title="Donate to this project using Open Collective"><img src="https://img.shields.io/badge/open%20collective-donate-yellow.svg" alt="Open Collective donate button" /></a></span>
@@ -155,7 +155,7 @@ CustomLoggerService is under [MIT](LICENSE) license.
 [npm-url]: https://npmjs.org/package/custom-logger-service
 [downloads-image]: https://img.shields.io/npm/dm/custom-logger-service.svg
 [downloads-url]: https://www.npmjs.com/package/custom-logger-service
-[travis-image]: https://img.shields.io/travis/ialopezg/custom-logger-service/master.svg
+[travis-image]: https://img.shields.io/travis/ialopezg/custom-logger-service/main.svg
 [travis-url]: https://travis-ci.org/ialopezg/custom-logger-service
 [coveralls-image]: https://img.shields.io/coveralls/ialopezg/custom-logger-service.svg?style=flat
-[coveralls-url]: https://coveralls.io/r/ialopezg/custom-logger-service?branch=master
+[coveralls-url]: https://coveralls.io/r/ialopezg/custom-logger-service?branch=main
