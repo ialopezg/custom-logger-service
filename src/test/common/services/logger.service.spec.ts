@@ -1,8 +1,8 @@
 import { FormatOptions } from '../../../common/interfaces';
 
-const { LoggerService } = require("../../../common");
+const { LoggerService } = require('../../../common');
 
-describe("LoggerService", () => {
+describe('LoggerService', () => {
   const defaultConfig: FormatOptions = {
     useFormat: true,
     useAppName: true,
@@ -13,16 +13,16 @@ describe("LoggerService", () => {
     usePadding: true,
   };
 
-  describe("Default configuration", () => {
-    it("should  setup a logger instance with default options", () => {
+  describe('Default configuration', () => {
+    it('should  setup a logger instance with default options', () => {
       const logger = new LoggerService();
 
-      expect(logger["_options"]).toStrictEqual(defaultConfig);
+      expect(logger['_options']).toStrictEqual(defaultConfig);
     });
   });
 
-  describe("Custom configuration", () => {
-    it("should setup a logger instance with no options nor format", () => {
+  describe('Custom configuration', () => {
+    it('should setup a logger instance with no options nor format', () => {
       const config: FormatOptions = {
         useFormat: false,
       };
@@ -35,10 +35,12 @@ describe("LoggerService", () => {
       logger.log(message);
       logger.warn(message);
 
-      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(logger['_options']).toStrictEqual(
+        Object.assign(defaultConfig, config),
+      );
     });
 
-    it("should setup a logger instance with no options and default format", () => {
+    it('should setup a logger instance with no options and default format', () => {
       const config: FormatOptions = {
         useFormat: true,
         useAppName: false,
@@ -58,11 +60,13 @@ describe("LoggerService", () => {
       logger.log(message);
       logger.warn(message);
 
-      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(logger['_options']).toStrictEqual(
+        Object.assign(defaultConfig, config),
+      );
       expect(spyLog).toHaveBeenCalledTimes(5);
     });
 
-    it("should setup a logger instance with all default format options", () => {
+    it('should setup a logger instance with all default format options', () => {
       const config: FormatOptions = Object.assign(defaultConfig, {
         useFormat: true,
         useAppName: 'APP',
@@ -83,11 +87,13 @@ describe("LoggerService", () => {
       logger.log(message);
       logger.warn(message);
 
-      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(logger['_options']).toStrictEqual(
+        Object.assign(defaultConfig, config),
+      );
       expect(spyLog).toHaveBeenCalledTimes(5);
     });
 
-    it("should setup a logger instance with custom format", () => {
+    it('should setup a logger instance with custom format', () => {
       const config: FormatOptions = Object.assign(defaultConfig, {
         useFormat: '[%app%] %pid% - %event% %timestamp% - %context% %message%',
       });
@@ -102,11 +108,13 @@ describe("LoggerService", () => {
       logger.log(message);
       logger.warn(message);
 
-      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(logger['_options']).toStrictEqual(
+        Object.assign(defaultConfig, config),
+      );
       expect(spyLog).toHaveBeenCalledTimes(5);
     });
 
-    it("should setup a logger instance with PID - No AppName", () => {
+    it('should setup a logger instance with PID - No AppName', () => {
       const config: FormatOptions = Object.assign(defaultConfig, {
         useFormat: true,
         useAppName: false,
@@ -127,11 +135,13 @@ describe("LoggerService", () => {
       logger.log(message);
       logger.warn(message);
 
-      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(logger['_options']).toStrictEqual(
+        Object.assign(defaultConfig, config),
+      );
       expect(spyLog).toHaveBeenCalledTimes(5);
     });
 
-    it("should setup a logger instance with AppName - no PID - no Context", () => {
+    it('should setup a logger instance with AppName - no PID - no Context', () => {
       const config: FormatOptions = Object.assign(defaultConfig, {
         useFormat: true,
         useAppName: true,
@@ -152,7 +162,9 @@ describe("LoggerService", () => {
       logger.log(message);
       logger.warn(message);
 
-      expect(logger["_options"]).toStrictEqual(Object.assign(defaultConfig, config));
+      expect(logger['_options']).toStrictEqual(
+        Object.assign(defaultConfig, config),
+      );
       expect(spyLog).toHaveBeenCalledTimes(5);
     });
   });
