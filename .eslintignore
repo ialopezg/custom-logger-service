@@ -3,3 +3,5 @@ coverage
 lib
 
 node_modules
+
+**/*.spec.ts
