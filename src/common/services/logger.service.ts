@@ -1,12 +1,13 @@
-import { Color } from "custom-console-colors";
+import { Color } from 'custom-console-colors';
 
-import { LogLevel } from "../enums";
-import { FormatOptions } from "../interfaces";
-import { padding } from "../utils";
+import { LogLevel } from '../enums';
+import { FormatOptions } from '../interfaces';
+import { padding } from '../utils';
 
 export class LoggerService {
   private _defaultFormat =
-    "[%app% - %pid%]: %event% - %timestamp%: %context% %message%";
+    '[%app% - %pid%]: %event% - %timestamp%: %context% %message%';
+
   private _defaultOptions = {
     useFormat: true,
     useAppName: true,
@@ -38,23 +39,23 @@ export class LoggerService {
   }
 
   warn(message: string): void {
-    this._logMessage(message, LogLevel.WARM, Color.yellow);
+    this._logMessage(message, LogLevel.WARN, Color.yellow);
   }
 
   private _logMessage(
     message: string,
     level: LogLevel = LogLevel.LOG,
     color: Function = Color.brightBlack,
-    contextColor: Function = Color.white
+    contextColor: Function = Color.white,
   ) {
     let formattedMessage: string;
     if (
-      typeof this._options.useFormat === "boolean" &&
+      typeof this._options.useFormat === 'boolean' &&
       this._options.useFormat === true
     ) {
       formattedMessage = this._defaultFormat;
     } else if (
-      typeof this._options.useFormat === "string" &&
+      typeof this._options.useFormat === 'string' &&
       this._options.useFormat.length
     ) {
       formattedMessage = this._options.useFormat;
@@ -65,89 +66,90 @@ export class LoggerService {
     if (this._options.useFormat) {
       // Show APP name
       if (
-        typeof this._options.useAppName === "boolean" &&
+        typeof this._options.useAppName === 'boolean' &&
         this._options.useAppName === true
       ) {
-        formattedMessage = formattedMessage.replace("%app%", "CLS");
+        formattedMessage = formattedMessage.replace('%app%', 'CLS');
       } else if (
-        typeof this._options.useAppName === "string" &&
+        typeof this._options.useAppName === 'string' &&
         this._options.useAppName.length
       ) {
         formattedMessage = formattedMessage.replace(
-          "%app%",
-          this._options.useAppName.toUpperCase()
+          '%app%',
+          this._options.useAppName.toUpperCase(),
         );
       } else {
-        formattedMessage = formattedMessage.replace("%app%", "");
+        formattedMessage = formattedMessage.replace('%app%', '');
       }
 
       // Show PID
       if (this._options.usePID) {
         if (this._options.useAppName) {
           formattedMessage = formattedMessage.replace(
-            "%pid%",
-            process.pid.toString()
+            '%pid%',
+            process.pid.toString(),
           );
         } else {
           formattedMessage = formattedMessage.replace(
-            " - %pid%",
-            process.pid.toString()
+            ' - %pid%',
+            process.pid.toString(),
           );
         }
       } else {
         if (this._options.useAppName) {
-          formattedMessage = formattedMessage.replace(" - %pid%", "");
+          formattedMessage = formattedMessage.replace(' - %pid%', '');
         } else {
-          formattedMessage = formattedMessage.replace("[ - %pid%]: ", "");
+          formattedMessage = formattedMessage.replace('[ - %pid%]: ', '');
         }
       }
 
       // Show event
       if (this._options.useEvent) {
+        const bolder = Color.bold;
         formattedMessage = formattedMessage.replace(
-          "%event%",
-          Color.bold(padding(LogLevel[level].toString()))
+          '%event%',
+          bolder(padding(LogLevel[level].toString(), Object.keys(LogLevel))),
         );
       } else {
-        formattedMessage = formattedMessage.replace("%event% - ", "");
+        formattedMessage = formattedMessage.replace('%event% - ', '');
       }
 
       // Show timestamp
       if (
-        typeof this._options.useTimestamp === "boolean" &&
+        typeof this._options.useTimestamp === 'boolean' &&
         this._options.useTimestamp === true
       ) {
         formattedMessage = formattedMessage.replace(
-          "%timestamp%",
-          new Date(Date.now()).toLocaleDateString()
+          '%timestamp%',
+          new Date(Date.now()).toLocaleDateString(),
         );
       } else {
-        formattedMessage = formattedMessage.replace("%timestamp%: ", "");
+        formattedMessage = formattedMessage.replace('%timestamp%: ', '');
       }
 
       // Show context
       if (
-        typeof this._options.useContext === "boolean" &&
+        typeof this._options.useContext === 'boolean' &&
         this._options.useContext === true
       ) {
         formattedMessage = formattedMessage.replace(
-          "%context%",
-          contextColor("APP")
+          '%context%',
+          contextColor('APP'),
         );
       } else if (
-        typeof this._options.useContext === "string" &&
+        typeof this._options.useContext === 'string' &&
         this._options.useContext.length
       ) {
         formattedMessage = formattedMessage.replace(
-          "%context%",
-          contextColor(this._options.useContext.toUpperCase())
+          '%context%',
+          contextColor(this._options.useContext.toUpperCase()),
         );
       } else {
-        formattedMessage = formattedMessage.replace("%context %", "");
+        formattedMessage = formattedMessage.replace('%context% ', '');
       }
-      formattedMessage = formattedMessage.replace("%message%", color(message));
+      formattedMessage = formattedMessage.replace('%message%', color(message));
     }
-    formattedMessage += "\n";
+    formattedMessage += '\n';
     process.stdout.write(color(formattedMessage));
   }
 }

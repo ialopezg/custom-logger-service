@@ -6,4 +6,4 @@
  * MIT License
  */
 
-export { LoggerService } from "./common";
+export { LoggerService } from './common';

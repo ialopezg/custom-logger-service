@@ -1,1 +1,1 @@
-export * from "./format-property.interface";
+export * from './format-property.interface';

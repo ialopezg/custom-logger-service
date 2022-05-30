@@ -1,15 +1,18 @@
-export const padding = (text: string): string => {
+export const padding = (text: string, keys?: string[]): string => {
   let length = 0;
-  let padding = "";
-  const keys = ["debug", "error", "info", "log", "warn"];
+  let padding = '';
+
+  if (!keys || keys.length <= 0) {
+    keys = [text];
+  }
 
   for (const key in keys) {
-    if (keys.hasOwnProperty(key)) {
+    if ({}.hasOwnProperty.call(keys, key)) {
       length = length < keys[key].length ? keys[key].length : length;
     }
   }
   for (let i = 0; i < length - text.length; i++) {
-    padding += " ";
+    padding += ' ';
   }
 
   return `${text}${padding}`;
