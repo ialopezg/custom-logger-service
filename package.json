@@ -1,6 +1,6 @@
 {
   "name": "custom-logger-service",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Custom Logger for Apps and API Services",
   "license": "MIT",
   "main": "lib/index.js",
